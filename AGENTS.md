@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Court catalog data lives in `src/data/canchas.ts` and booking rules (schedule, pricing, validation) in `src/lib/reserva.ts`; why: keep UI components presentational and rules testable.
+- Bookings are client-only for now (no backend); the confirmation screen reads booking details from validated URL search params; why: first visual version, swap for Lovable Cloud when persistence is needed.

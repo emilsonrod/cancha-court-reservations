@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConfirmacionRouteImport } from './routes/confirmacion'
+import { Route as ReservarCanchaIdRouteImport } from './routes/reservar.$canchaId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfirmacionRoute = ConfirmacionRouteImport.update({
+  id: '/confirmacion',
+  path: '/confirmacion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReservarCanchaIdRoute = ReservarCanchaIdRouteImport.update({
+  id: '/reservar/$canchaId',
+  path: '/reservar/$canchaId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/confirmacion': typeof ConfirmacionRoute
+  '/reservar/$canchaId': typeof ReservarCanchaIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/confirmacion': typeof ConfirmacionRoute
+  '/reservar/$canchaId': typeof ReservarCanchaIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/confirmacion': typeof ConfirmacionRoute
+  '/reservar/$canchaId': typeof ReservarCanchaIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/confirmacion' | '/reservar/$canchaId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/confirmacion' | '/reservar/$canchaId'
+  id: '__root__' | '/' | '/confirmacion' | '/reservar/$canchaId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConfirmacionRoute: typeof ConfirmacionRoute
+  ReservarCanchaIdRoute: typeof ReservarCanchaIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/confirmacion': {
+      id: '/confirmacion'
+      path: '/confirmacion'
+      fullPath: '/confirmacion'
+      preLoaderRoute: typeof ConfirmacionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reservar/$canchaId': {
+      id: '/reservar/$canchaId'
+      path: '/reservar/$canchaId'
+      fullPath: '/reservar/$canchaId'
+      preLoaderRoute: typeof ReservarCanchaIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConfirmacionRoute: ConfirmacionRoute,
+  ReservarCanchaIdRoute: ReservarCanchaIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
